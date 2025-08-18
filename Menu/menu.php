@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Menu Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
     <nav class="navbar">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Alfabetizador</h2></span>
+            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Bem-Vindo!</h2></span>
         </div>
     </nav>
 
     <div class="pet_status">
-        <img src="#" alt="Pet" class="img-fluid" style="width: 100%; height: auto; margin-top: 20px;">
-        <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <img src="petCat.gif" alt="Pet" class="img-fluid"><br>
+
+        <div style="display: flex; align-items: center; gap: 0.5vw;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fcc01e" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
+            <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+            </svg>
+            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-warning" style="width: 50%"></div>
+            </div>
         </div>
     </div>
 
@@ -29,21 +35,41 @@
     </div>
 
     <style>
-        .container-fluid {
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        }
+        .navbar  {
             background-color: #b5eac0;
             width: 100vw;
+            height: 12vh;
+            padding-bottom: 1vh;
+        }
+        .container-fluid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
             height: 10vh;
-            margin-top: -0.8vh;
+            padding-bottom: 1vh;
             padding-left: 1vw;
         }
         .top_title{
             font-size: 3rem;
-            font-family: 'Brush Script MT', cursive;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            margin-top: -1vh;
+            margin-left: 1vw;
+            margin-bottom: 1vh;
+        }
+        .img-fluid{
+            width: auto;
+            height: auto;
+            margin-left: 3vw;
+            margin-bottom: 2vh;
         }
         .pet_status{
-            margin-left: 8vw;
-            margin-top: 32vh;
-
+            margin-left: 10vw;
+            margin-top: 24vh;
         }
         .progress {
             width: 20vw;
@@ -52,20 +78,20 @@
         .menu{
             display: flex;
             flex-direction: column;
-            align-items: center;0
+            align-items: center;
             justify-content: center;
-            height: 60vh;
+            height: 65vh;
             width: 20vw;
             background-color: #b5eac0;
             border-radius: 20px;
             padding: 2vw 2vh 2vw 2vh;
             margin-left: 60vw;
-            margin-top: -25vh;
+            margin-top: -50vh;
         }
         .menu_title{
             font-size: 3rem;
             margin-bottom: 2vh;
-            font-family: 'Brush Script MT', cursive;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 
         }
         .menu_button{
@@ -76,13 +102,12 @@
             border-radius: 10px;
             font-size: 1.5rem;
             margin: 1vh 0;
-            font-family: 'Brush Script MT', cursive;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            transition: background 0.2s, color 0.2s;
         }
         .menu_button:hover {
-            background: linear-gradient(90deg, #b5eac0 0%, #f0f0f0 100%);
+            background-color: #e0e0e0;
             color: #388e3c;
-            box-shadow: 0 4px 16px rgba(56, 142, 60, 0.15);
             cursor: pointer;
         }
     </style>
@@ -94,7 +119,7 @@
     <script>
         // JS básico
         function jogar() {
-            if (confirm("Você tem certeza que deseja jogar?")) {
+            if (confirm("Você está pronto para jogar?")) {
                 window.location.href = "jogar.php";
             }
         }
