@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Bem-Vindo!</h2></span>
+            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Plataforma ABC</h2></span>
         </div>
     </nav>
 
@@ -64,12 +64,18 @@
         .img-fluid{
             width: auto;
             height: auto;
-            margin-left: 3vw;
+            margin-left: 0vw;
             margin-bottom: 2vh;
         }
         .pet_status{
             margin-left: 10vw;
-            margin-top: 24vh;
+            margin-top: 28vh;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            width: 20vw;
+            height: 20vh;
         }
         .progress {
             width: 20vw;
@@ -80,13 +86,23 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 65vh;
-            width: 20vw;
+            height: 50vh;
+            width: 16vw;
             background-color: #b5eac0;
             border-radius: 20px;
             padding: 2vw 2vh 2vw 2vh;
             margin-left: 60vw;
-            margin-top: -50vh;
+            margin-top: -40vh;
+            transition: height 0.3s, width 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform-origin: center center;
+        }
+        .menu:hover {
+            height: 60vh;
+            width: 20vw;
+            transform: scale(1.1);
+            transition: height 0.3s, width 0.3s, transform 0.3s;
         }
         .menu_title{
             font-size: 3rem;
@@ -120,7 +136,7 @@
         // JS básico
         function jogar() {
             if (confirm("Você está pronto para jogar?")) {
-                window.location.href = "jogar.php";
+                window.location.href = "#";
             }
         }
         function niveis() {
