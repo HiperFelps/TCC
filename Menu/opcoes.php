@@ -78,7 +78,7 @@
             padding-top: 1vh;
             padding-bottom: 5vh;
             padding-left: 1vw;
-            padding-right: 1vw;
+            padding-right: 2vw;
             display: inline-block;
             background: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -221,3 +221,4 @@
     </script>
 </body>
 </html>
+
