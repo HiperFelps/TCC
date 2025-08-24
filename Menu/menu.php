@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'conexao.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +18,7 @@
     </nav>
 
     <div class="pet_status">
-        <img src="petCat.gif" alt="Pet" class="img-fluid"><br>
+        <img src="petDino.gif" alt="Pet" class="img-fluid"><br>
 
         <div style="display: flex; align-items: center; gap: 0.5vw;">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fcc01e" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
@@ -147,9 +151,31 @@
         }
         function sair() {
             if (confirm("Você tem certeza que deseja sair?")) {
-                window.location.href = "index.php";
+                window.location.href = "#";
             }
         }
     </script>
 </body>
-</html>
+<?php
+// Recupera as opções salvas na sessão (ou cookies)
+$corMenu = isset($_SESSION['corMenu']) ? $_SESSION['corMenu'] : '#b5eac0';
+$petImagem = isset($_SESSION['petImagem']) ? $_SESSION['petImagem'] : 'petCat.gif';
+?>
+
+<script>
+// Aplica cor do menu dinamicamente
+document.addEventListener('DOMContentLoaded', function() {
+    var menu = document.querySelector('.menu');
+    if (menu) {
+        menu.style.backgroundColor = "<?php echo $corMenu; ?>";
+    }
+    var navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
+    }
+    var petImg = document.querySelector('.img-fluid');
+    if (petImg) {
+        petImg.src = "<?php echo $petImagem; ?>";
+    }
+});
+</script>
