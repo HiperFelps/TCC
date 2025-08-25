@@ -1,3 +1,4 @@
+
 <?php
 include 'conexao.php';
 
@@ -5,19 +6,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    $sql = "SELECT senha FROM usuarios WHERE email = ?";
+    // First, retrieve the hashed password from the database
+    $sql = "SELECT id, senha FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hash);
+        $stmt->bind_result($id, $hashedPassword);
         $stmt->fetch();
-        if (password_verify($senha, $hash)) {
-            header("Location: menu.php");
-exit();
 
+        // Now verify the password
+        if (password_verify($senha, $hashedPassword)) {
+            header("Location: menu.php?id=$id");
+            exit();
         } else {
             echo "<script>alert('❌ Senha incorreta!');</script>";
         }
