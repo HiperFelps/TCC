@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'conexao.php'; // $conn is your connection variable
@@ -174,15 +175,19 @@ include 'conexao.php'; // $conn is your connection variable
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       function Menu() {
-          window.location.href = 'menu.php';
+          window.location.href = 'menu.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>';
       }
     </script>
 <?php
 // Handle AJAX requests to save options
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $id = $_SESSION['id'] ?? 1; // Use your session logic
+    $id = $_SESSION['id'] ?? null; // Get the current user's ID from the session
+    if (!$id) {
+        die('Usuário não logado.'); // Handle the case where the user is not logged in
+    }
+    
     if (!isset($conn) || !$conn) {
-        die('Database connection not established.');
+        die('Conexão com o banco de dados não estabelecida.');
     }
 
     if ($_POST['action'] === 'save_pet' && isset($_POST['pet'])) {
@@ -215,9 +220,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 // Load saved options for the user
-$id = $_SESSION['user_id'] ?? 1;
+$id = $_SESSION['id'] ?? null; // Get the current user's ID from the session
+if (!$id) {
+    die('Usuário não logado.'); // Handle the case where the user is not logged in
+}
 if (!isset($conn) || !$conn) {
-    die('Database connection not established.');
+    die('Conexão com o banco de dados não estabelecida.');
 }
 $stmt = $conn->prepare("SELECT numPet, numColor FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
