@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'conexao.php';
@@ -144,18 +145,19 @@ include 'conexao.php';
             }
         }
         function niveis() {
-            window.location.href = "niveis.php";
+            window.location.href = "niveis.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
         }
         function opcoes() {
-            window.location.href = "opcoes.php";
+            window.location.href = "opcoes.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
         }
         function sair() {
             if (confirm("Você tem certeza que deseja sair?")) {
-                window.location.href = "#";
+                window.location.href = "login.php";
             }
         }
     </script>
 </body>
+</html>
 <?php
 // Recupera as opções salvas na sessão (ou cookies)
 $corMenu = isset($_SESSION['corMenu']) ? $_SESSION['corMenu'] : '#b5eac0';
