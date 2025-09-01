@@ -21,19 +21,18 @@
             padding-left: 20px;
         }
 
-       
         .container-principal {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 75vh;
+            min-height: 75vh; 
             flex-direction: column;
         }
 
         .titulo {
             font-size: 2.5rem;
             margin-bottom: 30px;
-            margin-top: -40px; 
+            margin-top: -40px;
             font-weight: bold;
         }
         .numero {
@@ -117,7 +116,7 @@
 
         <div class="container">
             <div class="row justify-content-center">
-                
+               
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(1)">1</div>
                     <div class="macas">
@@ -180,7 +179,7 @@
 
     <script>
         function mostrarMensagem(numero) {
-            alert("Você clicou no número " + numero + "! Muito bem!");
+            alert("Você está no nível " + numero);
             soltarConfetes();
         }
 
