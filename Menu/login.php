@@ -1,5 +1,5 @@
-
 <?php
+session_start();
 include 'conexao.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -19,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Now verify the password
         if (password_verify($senha, $hashedPassword)) {
-            header("Location: menu.php?id=$id");
+            $_SESSION['id'] = $id;
+            header("Location: menu.php?");
             exit();
         } else {
             echo "<script>alert('❌ Senha incorreta!');</script>";
