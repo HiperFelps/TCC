@@ -1,8 +1,23 @@
-
 <?php
 session_start();
 include 'conexao.php';
+$id = $_SESSION['id'] ?? null;
+if (!$id) {
+    header("Location: login.php");
+    exit();
+}
+$stmt = $conn->prepare("SELECT numPet, numColor FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($numPet, $numColor);
+$stmt->fetch();
+$stmt->close();
+$petFiles = ['pet.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
+$colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
+$petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
+$corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +43,9 @@ include 'conexao.php';
             <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-warning" style="width: 50%"></div>
             </div>
+        </div>
+        <div>
+            <h4>5/10</h4>
         </div>
     </div>
 
@@ -145,39 +163,31 @@ include 'conexao.php';
             }
         }
         function niveis() {
-            window.location.href = "niveis.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
+            window.location.href = "niveis.php?";
         }
         function opcoes() {
-            window.location.href = "opcoes.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
+            window.location.href = "opcoes.php?";
         }
         function sair() {
             if (confirm("Você tem certeza que deseja sair?")) {
                 window.location.href = "login.php";
             }
         }
+        // Aplica cor do menu dinamicamente
+        document.addEventListener('DOMContentLoaded', function() {
+            var menu = document.querySelector('.menu');
+            if (menu) {
+                menu.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var petImg = document.querySelector('.img-fluid');
+            if (petImg) {
+                petImg.src = "<?php echo $petImagem; ?>";
+            }
+        });
     </script>
 </body>
 </html>
-<?php
-// Recupera as opções salvas na sessão (ou cookies)
-$corMenu = isset($_SESSION['corMenu']) ? $_SESSION['corMenu'] : '#b5eac0';
-$petImagem = isset($_SESSION['petImagem']) ? $_SESSION['petImagem'] : 'petCat.gif';
-?>
-
-<script>
-// Aplica cor do menu dinamicamente
-document.addEventListener('DOMContentLoaded', function() {
-    var menu = document.querySelector('.menu');
-    if (menu) {
-        menu.style.backgroundColor = "<?php echo $corMenu; ?>";
-    }
-    var navbar = document.querySelector('.navbar');
-    if (navbar) {
-        navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
-    }
-    var petImg = document.querySelector('.img-fluid');
-    if (petImg) {
-        petImg.src = "<?php echo $petImagem; ?>";
-    }
-});
-</script>
