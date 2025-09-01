@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include 'conexao.php'; // $conn is your connection variable
@@ -175,7 +174,7 @@ include 'conexao.php'; // $conn is your connection variable
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       function Menu() {
-          window.location.href = 'menu.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>';
+          window.location.href = 'menu.php';
       }
     </script>
 <?php
@@ -235,7 +234,7 @@ $stmt->fetch();
 $stmt->close();
 
 // Map pet and color
-$petFiles = ['petCapi.gif', 'petCat.gif', 'petDino.gif'];
+$petFiles = ['pet.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
 $colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
 $petFile = $petFiles[$numPet ?? 0] ?? 'pet.gif';
 $colorCode = $colorCodes[$numColor ?? 1] ?? '#b5eac0';
@@ -266,9 +265,10 @@ function ChangePet() {
         newPet = 'petCapi.gif';
     } else if( petImg.src.includes('petCapi.gif')) {
         newPet = 'petCat.gif';
-    } else {
+    }else {
         newPet = 'petCat.gif';
     }
+
     petImg.src = newPet;
     saveOption('save_pet', 'pet', newPet);
 }
