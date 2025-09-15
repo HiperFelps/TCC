@@ -41,11 +41,11 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
             </svg>
             <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-warning" style="width: 50%"></div>
+            <div class="progress-bar bg-warning" style="width: 100%"></div>
             </div>
         </div>
         <div>
-            <h4>5/10</h4>
+            <h4>5/5</h4>
         </div>
     </div>
 
@@ -191,3 +191,4 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
     </script>
 </body>
 </html>
+
