@@ -14,12 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<script>alert('❌ Erro: Email já cadastrado!');</script>";
     }
     else{
-        $sql = "INSERT INTO usuarios (email, senha, numPet, numColor, numNivel) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios (email, senha, numPet, numColor, numNivel, numEnergia) VALUES (?, ?, ?, ?, ?, ?)";
         $numPet = 1;
         $numColor = 1;
         $numNivel = 1;
+        $numEnergia = 5;
         $stmt2 = $conn->prepare($sql);
-        $stmt2->bind_param("ssiii", $email, $senha, $numPet, $numColor, $numNivel);
+        $stmt2->bind_param("ssiiii", $email, $senha, $numPet, $numColor, $numNivel, $numEnergia);
         if ($stmt2->execute()) {
             header("Location: sucesso.php");
             exit();
