@@ -6,16 +6,17 @@ if (!$id) {
     header("Location: login.php");
     exit();
 }
-$stmt = $conn->prepare("SELECT numPet, numColor, numEnergia FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT numPet, numColor, numNivel, numEnergia FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($numPet, $numColor, $numEnergia);
+$stmt->bind_result($numPet, $numColor, $numNivel, $numEnergia);
 $stmt->fetch();
 $stmt->close();
 $petFiles = ['petCat.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
 $colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
 $petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
 $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
+$numNivel = $numNivel ?? 1;
 $energiaAtual = $numEnergia ?? 5;
 $energiaMaxima = 5;
 
@@ -28,6 +29,7 @@ $energiaMaxima = 5;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="niveis.php">
 </head>
 <body>
     <nav class="navbar">
@@ -149,7 +151,7 @@ $energiaMaxima = 5;
         }
         .menu_button:hover {
             background-color: #e0e0e0;
-            color: #388e3c;
+            color: #636363;
             cursor: pointer;
         }
     </style>
@@ -161,8 +163,27 @@ $energiaMaxima = 5;
     <script>
         // JS básico
         function jogar() {
-            if (confirm("Você está pronto para jogar?")) {
-                window.location.href = "#";
+            if(<?php echo $energiaAtual; ?> <= 0) {
+                alert("Energia insuficiente! Está na hora de uma pausa.");
+                return;
+            }else if (confirm("Você está pronto para jogar?")) {
+                if(<?php echo $numNivel; ?> <= 0){
+                    alert("Por favor, selecione um nível na seção Níveis.");
+                    return;
+                } else if (<?php echo $numNivel; ?> == 1){
+                    window.location.href = "tutorial.php";
+                } else if (<?php echo $numNivel; ?> == 2){
+                    window.location.href = "nivel2.php";
+                } else if (<?php echo $numNivel; ?> == 3){
+                    window.location.href = "nivel3.php";
+                } else if (<?php echo $numNivel; ?> == 4){
+                    window.location.href = "nivel4.php";
+                } else if (<?php echo $numNivel; ?> == 5){
+                    window.location.href = "nivel5.php";
+                } else {
+                    alert("Parabéns! Você completou todos os níveis disponíveis.");
+                    return;
+                }
             }
         }
         function niveis() {
