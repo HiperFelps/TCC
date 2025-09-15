@@ -6,16 +6,19 @@ if (!$id) {
     header("Location: login.php");
     exit();
 }
-$stmt = $conn->prepare("SELECT numPet, numColor FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT numPet, numColor, numEnergia FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($numPet, $numColor);
+$stmt->bind_result($numPet, $numColor, $numEnergia);
 $stmt->fetch();
 $stmt->close();
-$petFiles = ['pet.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
+$petFiles = ['petCat.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
 $colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
 $petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
 $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
+$energiaAtual = $numEnergia ?? 5;
+$energiaMaxima = 5;
+
 ?>
 
 <!DOCTYPE html>
@@ -34,18 +37,18 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
     </nav>
 
     <div class="pet_status">
-        <img src="petDino.gif" alt="Pet" class="img-fluid"><br>
-
+        <img src="<?php echo htmlspecialchars($petImagem); ?>" alt="Pet" class="img-fluid"><br>
+    
         <div style="display: flex; align-items: center; gap: 0.5vw;">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fcc01e" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
             <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
             </svg>
-            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-warning" style="width: 100%"></div>
+            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="<?php echo $energiaAtual * 20; ?>" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-warning" style="width: <?php echo ($energiaAtual / $energiaMaxima) * 100; ?>%"></div>
             </div>
         </div>
         <div>
-            <h4>5/5</h4>
+            <h4><?php echo $energiaAtual . '/' . $energiaMaxima; ?></h4>
         </div>
     </div>
 
@@ -163,17 +166,17 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             }
         }
         function niveis() {
-            window.location.href = "niveis.php?";
+            window.location.href = "niveis.php";
         }
         function opcoes() {
-            window.location.href = "opcoes.php?";
+            window.location.href = "opcoes.php";
         }
         function sair() {
             if (confirm("Você tem certeza que deseja sair?")) {
                 window.location.href = "login.php";
             }
         }
-        // Aplica cor do menu dinamicamente
+    
         document.addEventListener('DOMContentLoaded', function() {
             var menu = document.querySelector('.menu');
             if (menu) {
@@ -183,12 +186,7 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             if (navbar) {
                 navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
             }
-            var petImg = document.querySelector('.img-fluid');
-            if (petImg) {
-                petImg.src = "<?php echo $petImagem; ?>";
-            }
         });
     </script>
 </body>
 </html>
-
