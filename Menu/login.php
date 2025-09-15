@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <nav class="navbar navbar-light" style="background-color: #a8dfaa;">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3" href="#"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a class="loginAdmButton" href="loginAdministrador.php">Logar como Administrador</a>
         </div>
     </nav>
 
