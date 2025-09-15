@@ -1,6 +1,23 @@
 <?php
+session_start();
 include 'conexao.php';
+$id = $_SESSION['id'] ?? null;
+if (!$id) {
+    header("Location: login.php");
+    exit();
+}
+$stmt = $conn->prepare("SELECT numPet, numColor FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($numPet, $numColor);
+$stmt->fetch();
+$stmt->close();
+$petFiles = ['pet.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
+$colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
+$petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
+$corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +55,7 @@ include 'conexao.php';
             </div>
         </div>
     </div>
-        <button onclick="Menu()" class="menu-button"">
+        <button onclick="Menu()" class="menu_button">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
           </svg>
@@ -95,7 +112,7 @@ include 'conexao.php';
         .nivel_button:hover {
             background-color: #a0d8b0;
         }
-        .menu-button {
+        .menu_button {
             background-color: #b5eac0;
             color: #333;
             font-size: 1.2rem;
@@ -154,6 +171,20 @@ include 'conexao.php';
         function Menu() {
             window.location.href = 'menu.php';
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var menu_button = document.querySelector('.menu_button');
+            if (menu_button) {
+                menu_button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var nivelButtons = document.querySelectorAll('.nivel_button');
+                nivelButtons.forEach(function(button) {
+                button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            });
+        });
     </script>
 </body>
 </html>
