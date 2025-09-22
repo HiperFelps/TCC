@@ -22,6 +22,8 @@
             background-color: #b5eac0;
             padding: 20px;
             height: 120px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          
           
 
         }
@@ -319,4 +321,5 @@
         });
     </script>
 </body>
+
 </html>
