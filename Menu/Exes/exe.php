@@ -51,11 +51,28 @@
         .button:hover {
             background-color: #82d694;
         }
-        .back-button {
+        .menu_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 220px;
+            left: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .menu_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -85,15 +102,18 @@
         </div>
     </div>
 
-    <div class="back-button">
-        <div class="button" onclick="confirmAndBack()">←</div>
-    </div>
+    <button onclick="Menu()" class="menu_button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>
+      Voltar ao Menu Principal
+    </button>
 
-    <audio id="audioA" src="letra a.ogg"></audio>
-    <audio id="audioE" src="sletra E.ogg"></audio>
-    <audio id="audioI" src="letra i.ogg"></audio>
-    <audio id="audioO" src="letra o.ogg"></audio>
-    <audio id="audioU" src="letra u.ogg"></audio>
+    <audio id="audioA" src="somA.mp3"></audio>
+    <audio id="audioE" src="somE.mp3"></audio>
+    <audio id="audioI" src="somI.mp3"></audio>
+    <audio id="audioO" src="somO.mp3"></audio>
+    <audio id="audioU" src="somU.mp3"></audio>
     <audio id="buttonClickSound" src="sounds/button-click.mp3"></audio> 
     <audio id="correctSound" src="sounds/correct.mp3"></audio> 
 
@@ -138,9 +158,8 @@
             }
         }
 
-        function back() {
-            
-            alert("Voltando...");
+        function Menu() {
+            window.location.href = 'menu.php';            
         }
 
         function confirmAndPlay(letter) {
