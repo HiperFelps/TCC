@@ -139,34 +139,22 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
     <script>
       // JS básico
       function StartLevel1() {
-            if(confirm("Você tem certeza que deseja iniciar o Nível 1?")) {
-          window.location.href = "level1.php";
-            }
+          window.location.href = "tutorial.php";
         }
         function StartLevel2() {
-            if(confirm("Você tem certeza que deseja iniciar o Nível 2?")) {
-                window.location.href = "level2.php";
-            }
+                window.location.href = "niveis.numeros.php";
         }
         function StartLevel3() {
-            if(confirm("Você tem certeza que deseja iniciar o Nível 3?")) {
                 window.location.href = "level3.php";
-            }
         }
         function StartLevel4() {
-            if(confirm("Você tem certeza que deseja iniciar o Nível 4?")) {
             window.location.href = "level4.php";
-            }
         }
         function StartLevel5() {
-            if(confirm("Você tem certeza que deseja iniciar o Nível 5?")) {
             window.location.href = "level5.php";
-            }
         }
         function StartLevel6() {
-            if(confirm("Você tem certeza que deseja iniciar o Nível 6?")) {
             window.location.href = "level6.php";
-            }
         }
         function Menu() {
             window.location.href = 'menu.php';
