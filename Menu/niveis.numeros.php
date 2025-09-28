@@ -124,7 +124,6 @@
                     </div>
                 </div>
 
-               
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(2)">2</div>
                     <div class="macas">
@@ -133,7 +132,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(3)">3</div>
                     <div class="macas">
@@ -143,7 +141,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(4)">4</div>
                     <div class="macas">
@@ -154,7 +151,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(5)">5</div>
                     <div class="macas">
@@ -179,7 +175,6 @@
 
     <script>
         function mostrarMensagem(numero) {
-            alert("Você está no nível " + numero);
             soltarConfetes();
         }
 
