@@ -10,7 +10,7 @@ email varchar(100) not null unique,
 senha varchar(255) not null,
 numPet int,
 numColor int,
-NumNivel int,
+numNivel int,
 numEnergia int,
 primary key (id)
 );
