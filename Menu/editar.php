@@ -20,12 +20,12 @@ if(isset($_GET['id'])){
 if(isset($_POST['id'])){
     $id = $_POST['id'];
     $email = $_POST['email'];
-    $numCor = $_POST['numCor'];
+    $numColor = $_POST['numColor'];
     $numPet = $_POST['numPet'];
     $numNivel = $_POST['numNivel'];
     $numEnergia = $_POST['numEnergia'];
 
-    $sql2 = "UPDATE usuarios SET id='$id', email='$email', numCor='$numCor', numPet='$numPet', numNivel='$numNivel', numEnergia='$numEnergia' WHERE id='$id'";
+    $sql2 = "UPDATE usuarios SET id='$id', email='$email', numColor='$numColor', numPet='$numPet', numNivel='$numNivel', numEnergia='$numEnergia' WHERE id='$id'";
 
     if(mysqli_query($conn, $sql2)){
         echo "contato atualizado com sucesso <br>";
@@ -45,24 +45,22 @@ if(isset($_POST['id'])){
     <title>Editar</title>
 </head>
 <body>
-        <h2 id="titulo">Editar Contato</h2>
-        <div id="form">
-        <form method="post">
-        <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>">
-        <label for="id" class="labels">ID: </label><br>
-        <input type="number" name="id" value="<?php echo $usuario['id'];?>" required><br><br>
+        <h2 id="titulo">Editar Usuário</h2>
+        <div class="form">
+        <form method="post" action="editar.php">
+        <input type="hidden" name="userId" value="<?php echo $usuario['id']; ?>">
         <label for="email" class="labels">Email: </label><br>
-        <input type="email" name="email" value="<?php echo $usuario['email'];?>" required><br><br>
-        <label for="numCor" class="labels">Cor: </label><br>
-        <input type="number" name="numCor" value="<?php echo $usuario['numCor'];?>" required><br><br>
+        <input class="inp" type="email" name="email" value="<?php echo htmlspecialchars($usuario['email']);?>" required><br><br>
+        <label for="numColor" class="labels">Cor: </label><br>
+        <input class="inp" type="number" name="numColor" max=3 min=1 value="<?php echo htmlspecialchars($usuario['numColor']);?>" required><br><br>
         <label for="numPet" class="labels">Pet: </label><br>
-        <input type="number" name="numPet" value="<?php echo $usuario['numPet'];?>" required><br><br>
+        <input class="inp" type="number" name="numPet" max=3 min=1 value="<?php echo htmlspecialchars($usuario['numPet']);?>" required><br><br>
         <label for="numNivel" class="labels">Nível: </label><br>
-        <input type="number" name="numNivel" value="<?php echo $usuario['numNivel'];?>" required><br><br>
+        <input class="inp" type="number" name="numNivel" min=1 value="<?php echo htmlspecialchars($usuario['numNivel']);?>" required><br><br>
         <label for="numEnergia" class="labels">Energia: </label><br>
-        <input type="number" name="numEnergia" value="<?php echo $usuario['numEnergia'];?>" required><br><br>
-        <input type="submit" name="atualizar" value="atualizar" id="button"><br><br>
-        
+        <input class="inp" type="number" name="numEnergia" value="<?php echo htmlspecialchars($usuario['numEnergia']);?>" required><br><br>
+        <input type="submit" name="atualizar" value="atualizar" class="button" max=5 min=0><br><br>
+
         </form>
         </div>
             <a href="controle.php" id="link">Voltar</a>
@@ -76,7 +74,7 @@ if(isset($_POST['id'])){
                 color: #333;
                 text-align: center;
             }
-            #form {
+            .form {
                 background-color: #fff;
                 padding: 20px;
                 border-radius: 5px;
@@ -86,7 +84,15 @@ if(isset($_POST['id'])){
                 margin-right: 41%;
                 text-align: center;
             }
-            #button {
+            .inp {
+                width: 100%;
+                padding: 5px;
+                margin: 5px 0 15px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .button {
                 background-color: #007BFF;
                 color: white;
                 border: none;
@@ -108,9 +114,11 @@ if(isset($_POST['id'])){
                 margin-top: 20px;
             }
             .labels {
-                color: #333;
-                font-family: Arial, sans-serif;
-                font-size: 16px;
+                font-weight: bold;
+                color: #555;
+                text-align: left;
+                display: block;
+                margin-bottom: -15px;
             }
         </style>
 </body>
