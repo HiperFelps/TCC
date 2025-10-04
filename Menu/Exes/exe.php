@@ -1,3 +1,24 @@
+<?php
+session_start();
+include 'conexao.php';
+$id = $_SESSION['id'] ?? null;
+if (!$id) {
+    header("Location: login.php");
+    exit();
+}
+$stmt = $conn->prepare("SELECT numColor, numNivel, numEnergia FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($numColor, $numNivel, $numEnergia);
+$stmt->fetch();
+$stmt->close();
+$colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
+$corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
+$numNivel = $numNivel ?? 1;
+$numEnergiaAtual = $numEnergia ?? 5;
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,6 +26,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alfabetizador</title>
     <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+        }
         .navbar {
             background-color: #b5eac0;
             width: 100vw;
@@ -12,32 +41,27 @@
             padding: 0;
             margin: 0;
             display: flex;
-            align-items: center;
+            justify-content: left;
+            align-items: left;
         }
         .container-fluid {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: left;
+            justify-content: left;
             width: 100vw;
             height: 10vh;
             padding: 0;
+            padding-left: 20px;
             margin: 0;
         }
         .top_title {
             font-size: 3rem;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             margin: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            text-align: center;
-            margin: 0;
-            padding: 0;
+            font-weight: normal;
         }
         .button {
             background-color: #98e0a2;
-            border: 2px solid #78c8a1;
             border-radius: 8px;
             padding: 20px;
             margin: 10px;
@@ -47,9 +71,16 @@
             width: 200px;
             margin-left: auto;
             margin-right: auto;
+            text-align: center;
         }
         .button:hover {
             background-color: #82d694;
+        }
+        .som{
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+            margin-right: 10px;
         }
         .menu_button {
             background-color: #b5eac0;
@@ -74,6 +105,29 @@
             background-color: #e0e0e0;
             cursor: pointer;
         }
+        .voltar_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            left: 1vw;
+            bottom: 12vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .voltar_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -86,7 +140,7 @@
     </nav>
 
     <div id="buttons" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-        <div class="button" onclick="playRandomVowel()" style="width: 220px; font-size: 32px;">🔊</div>
+        <div class="button" onclick="playRandomVowel()" style="width: 220px; font-size: 32px;"><img class="som" src="auto.png" alt="🔊"></div>
         <div style="display: flex; flex-direction: row; gap: 10px;">
             <div style="display: flex; flex-direction: column; gap: 10px;">
                 <div class="button" onclick="confirmAndPlay('A')">A</div>
@@ -102,6 +156,12 @@
         </div>
     </div>
 
+     <button onclick="Voltar()" class="voltar_button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>
+      Voltar à página anterior
+    </button>
     <button onclick="Menu()" class="menu_button">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
@@ -119,6 +179,7 @@
 
     <script>
         var expectedVowel = null;
+        var score = 1;
 
         function playSound(letter) {
             var validLetters = ['A', 'E', 'I', 'O', 'U'];
@@ -144,11 +205,27 @@
         }
 
         function restartPhase() {
-            expectedVowel = null;
-            setTimeout(function() {
+            if(score < 5) {
+                score++;
+                expectedVowel = null;
+                setTimeout(function() {
                 playRandomVowel();
             }, 500); 
+        }else{
+            alert('Parabéns! Você completou o nível ' + <?php echo $numNivel; ?> + '!');
+            window.location.href = 'menu.php';
+            <?php
+                $newNivel = $numNivel + 1;
+                $energyLoss = 1;
+                $energiaAtual = max(0, $numEnergiaAtual - $energyLoss);
+
+                $stmt = $conn->prepare("UPDATE usuarios SET numNivel = ?, numEnergia = ? WHERE id = ?");
+                $stmt->bind_param("iii", $newNivel, $energiaAtual, $id);
+                $stmt->execute();
+                $stmt->close();
+            ?>
         }
+    }
 
         function playCorrectSound() {
             var correctSound = document.getElementById("correctSound");
@@ -160,6 +237,10 @@
 
         function Menu() {
             window.location.href = 'menu.php';            
+        }
+
+        function Voltar() {
+            window.history.back();            
         }
 
         function confirmAndPlay(letter) {
@@ -190,6 +271,31 @@
             buttonClickSound.currentTime = 0;
             buttonClickSound.play();
         }
+        // Mudança de cores
+        document.querySelector('.navbar').style.backgroundColor = '<?php echo $corMenu; ?>';
+        document.querySelector('.menu_button').style.backgroundColor = '<?php echo $corMenu; ?>';
+        document.querySelector('.voltar_button').style.backgroundColor = '<?php echo $corMenu; ?>';
+        document.querySelector('.menu_button').addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#e0e0e0';
+        });
+        document.querySelector('.menu_button').addEventListener('mouseout', function() {
+            this.style.backgroundColor = '<?php echo $corMenu; ?>';
+        });
+        document.querySelector('.voltar_button').addEventListener('mouseout', function() {
+            this.style.backgroundColor = '<?php echo $corMenu; ?>';
+        });
+        document.querySelectorAll('.button').forEach(function(btn) {
+            btn.style.backgroundColor = '<?php echo $corMenu; ?>';
+        });
+        document.querySelectorAll('.button').forEach(function(btn) {
+            btn.addEventListener('mouseover', function() {
+                this.style.backgroundColor = '#e0e0e0';
+            });
+            btn.addEventListener('mouseout', function() {
+                this.style.backgroundColor = '<?php echo $corMenu; ?>';
+            });
+        });
+
     </script>
 </body>
 </html>
