@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +44,7 @@
             bottom: 20px;
             cursor: pointer;
             border: black 2px solid;
-            margin-top: 100px;
+            margin-top: 140px;
             border-radius: 30%;
             display: flex;
             align-items: center;
@@ -64,7 +63,7 @@
             bottom: 20px;
             cursor: pointer;
             border: black 2px solid;
-            margin-top: 100px;
+            margin-top: 140px;
             border-radius: 30%;
             display: flex;
             align-items: center;
@@ -85,7 +84,7 @@
             bottom: 20px;
             cursor: pointer;
             border: black 2px solid;
-            margin-top: 100px;
+            margin-top: 140px;
             border-radius: 30%;
             display: flex;
             align-items: center;
@@ -105,7 +104,7 @@
             bottom: 20px;
             cursor: pointer;
             border: black 2px solid;
-            margin-top: 100px;
+            margin-top: 140px;
             border-radius: 30%;
             display: flex;
             align-items: center;
@@ -122,7 +121,53 @@
             font-family: comic sans ms, sans-serif; /* Fonte */
         }
 
-       
+          .menu_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            left: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .menu_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+
+           .next_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            right: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .next_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
 
        
     </style>
@@ -153,6 +198,20 @@
     <audio id="audioPlayer4" src="au.mp3"></audio>
 </div>
 
+<button onclick="Menu()" class="menu_button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>
+      Voltar ao Menu Principal
+    </button>
+    
+      <button onclick="Next()" class="next_button">
+        Continuar nível  
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+      </svg>
+    </button>
+
     <script>
         document.getElementById('audioBtn').addEventListener('click', function() {
             var audio = document.getElementById('audioPlayer');
@@ -170,6 +229,14 @@
             var audio = document.getElementById('audioPlayer4');
             audio.play();
         });
+
+          function Menu() {
+          window.location.href = 'menu.php';
+        }
+
+           function Next() {
+          window.location.href = 'exe.php';
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
