@@ -55,6 +55,14 @@ $numNivel = $numNivel ?? 1;
             margin-left: 1vw;
             margin-bottom: 1vh;
         }
+        .page_title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: #111;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            margin-bottom: -30px;
+        }
 
         .letras-container{
            position: relative;
@@ -106,7 +114,7 @@ $numNivel = $numNivel ?? 1;
         }
         #playButton1 {
             position: relative;
-            bottom: 20px;
+            top: -20px;
             right: 20px;
             width: 60px;
             height: 60px;
@@ -128,8 +136,8 @@ $numNivel = $numNivel ?? 1;
        }
         #playButton2 {
             position: relative;
-            bottom: 80px;
             right: -110px;
+            top: -80px;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -151,7 +159,7 @@ $numNivel = $numNivel ?? 1;
 
          #playButton3 {
             position: relative;
-            bottom: 140px;
+            top: -140px;
             right: -235px;
             width: 60px;
             height: 60px;
@@ -174,7 +182,7 @@ $numNivel = $numNivel ?? 1;
 
              #playButton4 {
             position: relative;
-            bottom: 200px;
+            top: -200px;
             right: -350px;
             width: 60px;
             height: 60px;
@@ -197,7 +205,7 @@ $numNivel = $numNivel ?? 1;
 
           #playButton5 {
             position: relative;
-            bottom: 258px;
+            top: -258px;
             right: -475px;
             width: 60px;
             height: 60px;
@@ -271,7 +279,7 @@ $numNivel = $numNivel ?? 1;
             <span class="navbar-brand mb-0 h1"><h2 class="top_title">Alfabetizador - TUTORIAL</h2></span>
         </div>
     </nav>
-    
+    <h1 class="page_title">VOGAIS</h1>
 
     <div class="letras-container">
 <img src="letraA.png" alt="Large bold black uppercase letter A centered on a transparent background, no additional text or elements, neutral tone" class="imagemA">
