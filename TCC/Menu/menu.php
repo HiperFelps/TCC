@@ -6,19 +6,15 @@ if (!$id) {
     header("Location: login.php");
     exit();
 }
-$stmt = $conn->prepare("SELECT numPet, numColor, numNivel, numEnergia FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT numColor, numNivel FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($numPet, $numColor, $numNivel, $numEnergia);
+$stmt->bind_result($numColor, $numNivel);
 $stmt->fetch();
 $stmt->close();
-$petFiles = ['petCat.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
 $colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
-$petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
 $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 $numNivel = $numNivel ?? 1;
-$energiaAtual = $numEnergia ?? 5;
-$energiaMaxima = 5;
 ?>
 
 <!DOCTYPE html>
@@ -26,43 +22,14 @@ $energiaMaxima = 5;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link href="niveis.php">
+    <title>Alfabetizador - Nivel - Tutorial</title>
+     <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous"
+  />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Plataforma ABC</h2></span>
-        </div>
-    </nav>
-
-    <div class="pet_status">
-        <img src="<?php echo htmlspecialchars($petImagem); ?>" alt="Pet" class="img-fluid"><br>
-    
-        <div style="display: flex; align-items: center; gap: 0.5vw;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fcc01e" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
-            <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
-            </svg>
-            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="<?php echo $energiaAtual * 20; ?>" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-warning" style="width: <?php echo ($energiaAtual / $energiaMaxima) * 100; ?>%"></div>
-            </div>
-        </div>
-        <div>
-            <h4><?php echo $energiaAtual . '/' . $energiaMaxima; ?></h4>
-        </div>
-    </div>
-
-    <div class="menu">
-        <h2 class="menu_title">Menu</h2>
-        <button class="menu_button" onclick="jogar()">Jogar</button>
-        <button class="menu_button" onclick="niveis()">Níveis</button>
-        <button class="menu_button" onclick="opcoes()">Opções</button>
-        <button class="menu_button" onclick="sair()">Sair</button>
-    </div>
-
-    <style>
-        body {
+     <style>
+       body {
             background-color: #f0f0f0;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
         }
@@ -88,124 +55,346 @@ $energiaMaxima = 5;
             margin-left: 1vw;
             margin-bottom: 1vh;
         }
-        .img-fluid{
-            width: auto;
-            height: auto;
-            margin-left: 0vw;
-            margin-bottom: 2vh;
-        }
-        .pet_status{
-            margin-left: 10vw;
-            margin-top: 28vh;
-            align-items: center;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-            width: 20vw;
-            height: 20vh;
-        }
-        .progress {
-            width: 20vw;
-            height: 1.5vh;
-        }
-        .menu{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 50vh;
-            width: 16vw;
-            background-color: #b5eac0;
-            border-radius: 20px;
-            padding: 2vw 2vh 2vw 2vh;
-            margin-left: 60vw;
-            margin-top: -40vh;
-            transition: height 0.3s, width 0.3s, transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transform-origin: center center;
-        }
-        .menu:hover {
-            height: 60vh;
-            width: 20vw;
-            transform: scale(1.1);
-            transition: height 0.3s, width 0.3s, transform 0.3s;
-        }
-        .menu_title{
-            font-size: 3rem;
-            margin-bottom: 2vh;
+        .page_title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: #111;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            margin-bottom: -30px;
+        }
 
+        .letras-container{
+           position: relative;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 200px;
+           flex-wrap: wrap; 
+           margin-top: 45px;
         }
-        .menu_button{
-            width: 80%;
-            height: 10vh;
-            background-color: #f0f0f0;
+
+        .imagemA{
+            width: 120px;
+            height: auto;
+            padding: 10px;
+            position: absolute;
+            margin-right:500px
+        }
+        .imagemE{
+            width: 120px;
+            height: auto;
+            padding: 10px;
+            margin-right: 230px;
+            position: absolute;
+        }
+        .imagemI{
+            width: 120px;
+            height: 145px;
+            padding: 10px;
+            position: absolute;
+        }
+        .imagemO{
+            width: 125px;
+            height: 145px;
+            padding: 10px;
+            margin-right: -250px;
+            position: absolute;
+        }
+        .imagemU{
+            width: 125px;
+            height: 145px;
+            padding: 10px;
+            margin-right: -500px;
+            position: absolute;
+        }
+        .mute{
+            background-color: white;
+            cursor: pointer;
+        }
+        #playButton1 {
+            position: relative;
+            top: -20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             border: none;
-            border-radius: 10px;
-            font-size: 1.5rem;
-            margin: 1vh 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left: 31%;
+            background-color: #b5eac0;
+            &:hover {
+                background-color: #d5e9d8ff;
+            }
+        }
+        #playButton1 img {
+            width: 30px;
+            height: 30px;  
+       }
+        #playButton2 {
+            position: relative;
+            right: -110px;
+            top: -80px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left: 31%;
+            background-color: #b5eac0;
+            &:hover {
+                background-color: #d5e9d8ff;
+            }
+        }
+        #playButton2 img {
+            width: 30px;
+            height: 30px;
+        }
+
+         #playButton3 {
+            position: relative;
+            top: -140px;
+            right: -235px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left: 31%;
+            background-color: #b5eac0;
+            &:hover {
+                background-color: #d5e9d8ff;
+            }
+        }
+        #playButton3 img {
+            width: 30px;
+            height: 30px;
+        }
+
+             #playButton4 {
+            position: relative;
+            top: -200px;
+            right: -350px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left: 31%;
+            background-color: #b5eac0;
+            &:hover {
+                background-color: #d5e9d8ff;
+            }
+        }
+        #playButton4 img {
+            width: 30px;
+            height: 30px;
+        }
+
+          #playButton5 {
+            position: relative;
+            top: -258px;
+            right: -475px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left: 31%;
+            background-color: #b5eac0;
+            &:hover {
+                background-color: #d5e9d8ff;
+            }
+        }
+        #playButton5 img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .menu_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
             transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            left: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
         }
         .menu_button:hover {
             background-color: #e0e0e0;
-            color: #636363;
+            cursor: pointer;
+        }
+        .next_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            right: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .next_button:hover {
+            background-color: #e0e0e0;
             cursor: pointer;
         }
     </style>
 
+    <nav class="navbar">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Alfabetizador - TUTORIAL</h2></span>
+        </div>
+    </nav>
+    <h1 class="page_title">VOGAIS</h1>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-        // Bootstrap JS
-    </script>
-    <script>
-        // JS básico
-        function jogar() {
-            if(<?php echo $energiaAtual; ?> <= 0) {
-                alert("Energia insuficiente! Está na hora de uma pausa.");
-                return;
-            }else if (confirm("Você está pronto para jogar?")) {
-                if(<?php echo $numNivel; ?> <= 0){
-                    alert("Por favor, selecione um nível na seção Níveis.");
-                    return;
-                } else if (<?php echo $numNivel; ?> == 1){
-                    window.location.href = "tutorial.php";
-                } else if (<?php echo $numNivel; ?> == 2){
-                    window.location.href = "nivel2.php";
-                } else if (<?php echo $numNivel; ?> == 3){
-                    window.location.href = "nivel3.php";
-                } else if (<?php echo $numNivel; ?> == 4){
-                    window.location.href = "nivel4.php";
-                } else if (<?php echo $numNivel; ?> == 5){
-                    window.location.href = "nivel5.php";
-                } else {
-                    alert("Parabéns! Você completou todos os níveis disponíveis.");
-                    return;
-                }
-            }
+    <div class="letras-container">
+<img src="letraA.png" alt="Large bold black uppercase letter A centered on a transparent background, no additional text or elements, neutral tone" class="imagemA">
+<img src="letraE.png" alt="Large bold black uppercase letter E centered on a transparent background, no additional text or elements, neutral tone" class="imagemE">
+<img src="letraI.png" alt="Large bold black uppercase letter I centered on a transparent background, no additional text or elements, neutral tone" class="imagemI">
+<img src="letraO.png" alt="Large bold black uppercase letter O centered on a transparent background, no additional text or elements, neutral tone" class="imagemO">
+<img src="letraU.png" alt="Large bold black uppercase letter U centered on a transparent background, no additional text or elements, neutral tone" class="imagemU">
+    </div>
+
+     <audio id="audioPlayer" src="SomA.mp3"></audio>
+    <button id="playButton1" class="mute">
+        <img src="auto.png" alt="Som">
+    </button>
+
+     <audio id="audioPlayer2" src="SomE.mp3"></audio>
+    <button id="playButton2" class="mute">
+       <img src="auto.png" alt="Som2">
+     </button>
+
+      <audio id="audioPlayer3" src="SomI.mp3"></audio>
+    <button id="playButton3" class="mute">
+       <img src="auto.png" alt="Som3">
+     </button>
+
+      <audio id="audioPlayer4" src="SomO.mp3"></audio>
+    <button id="playButton4" class="mute">
+       <img src="auto.png" alt="Som4">
+     </button>
+
+      <audio id="audioPlayer5" src="SomU.mp3"></audio>
+    <button id="playButton5" class="mute">
+       <img src="auto.png" alt="Som5">
+     </button>
+
+    <button onclick="Menu()" class="menu_button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>
+      Voltar ao Menu Principal
+    </button>
+    <button onclick="Next()" class="next_button">
+        Continuar nível  
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+      </svg>
+    </button>
+
+
+<script>
+        document.getElementById('playButton1').addEventListener('click', function() {
+            var audio = document.getElementById('audioPlayer');
+            audio.play();
+        });
+
+        document.getElementById('playButton2').addEventListener('click', function() {
+            var audio = document.getElementById('audioPlayer2');
+            audio.play();
+        });
+
+         document.getElementById('playButton3').addEventListener('click', function() {
+            var audio = document.getElementById('audioPlayer3');
+            audio.play();
+        });
+
+          document.getElementById('playButton4').addEventListener('click', function() {
+            var audio = document.getElementById('audioPlayer4');
+            audio.play();
+        });
+
+           document.getElementById('playButton5').addEventListener('click', function() {
+            var audio = document.getElementById('audioPlayer5');
+            audio.play();
+        });
+        
+        function Menu() {
+          window.location.href = 'menu.php';
         }
-        function niveis() {
-            window.location.href = "niveis.php";
+        function Next() {
+          window.location.href = 'exe.php';
         }
-        function opcoes() {
-            window.location.href = "opcoes.php";
-        }
-        function sair() {
-            if (confirm("Você tem certeza que deseja sair?")) {
-                window.location.href = "login.php";
-            }
-        }
-    
+
         document.addEventListener('DOMContentLoaded', function() {
-            var menu = document.querySelector('.menu');
-            if (menu) {
-                menu.style.backgroundColor = "<?php echo $corMenu; ?>";
-            }
             var navbar = document.querySelector('.navbar');
             if (navbar) {
                 navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
             }
+            var menu_button = document.querySelector('.menu_button');
+            if (menu_button) {
+                menu_button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var next_button = document.querySelector('.next_button');
+            if (next_button) {
+                next_button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var playButton1 = document.querySelector('#playButton1');
+            if (playButton1) {
+                playButton1.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var playButton2 = document.querySelector('#playButton2');
+            if (playButton2) {
+                playButton2.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var playButton3 = document.querySelector('#playButton3');
+            if (playButton3) {
+                playButton3.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var playButton4 = document.querySelector('#playButton4');
+            if (playButton4) {
+                playButton4.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var playButton5 = document.querySelector('#playButton5');
+            if (playButton5) {
+                playButton5.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            
         });
     </script>
 </body>
