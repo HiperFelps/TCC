@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $numPet = 1;
         $numColor = 1;
         $numNivel = 1;
-        $numEnergia = 5;
+        $numEnergia = 0;
         $stmt2 = $conn->prepare($sql);
         $stmt2->bind_param("ssiiii", $email, $senha, $numPet, $numColor, $numNivel, $numEnergia);
         if ($stmt2->execute()) {
@@ -69,4 +69,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
