@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $numPet = 1;
         $numColor = 1;
         $numNivel = 1;
-        $numEnergia = 5;
+        $numEnergia = 0;
         $stmt2 = $conn->prepare($sql);
         $stmt2->bind_param("ssiiii", $email, $senha, $numPet, $numColor, $numNivel, $numEnergia);
         if ($stmt2->execute()) {
