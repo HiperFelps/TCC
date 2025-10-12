@@ -58,7 +58,7 @@ if(isset($_POST['id'])){
         <label for="numNivel" class="labels">Nível: </label><br>
         <input class="inp" type="number" name="numNivel" min=1 value="<?php echo htmlspecialchars($usuario['numNivel']);?>" required><br><br>
         <label for="numEnergia" class="labels">Energia: </label><br>
-        <input class="inp" type="number" name="numEnergia" value="<?php echo htmlspecialchars($usuario['numEnergia']);?>" required><br><br>
+        <input class="inp" type="number" name="numEnergia" max="5" min="1" value="<?php echo htmlspecialchars($usuario['numEnergia']);?>" required><br><br>
         <input type="submit" name="atualizar" value="atualizar" class="button" max=5 min=0><br><br>
 
         </form>
@@ -104,6 +104,7 @@ if(isset($_POST['id'])){
                 margin-left: 25%;
                 margin-right: 25%;
                 cursor: pointer;
+                border-radius: 4px;
             }
             #link {
                 text-decoration: none;
