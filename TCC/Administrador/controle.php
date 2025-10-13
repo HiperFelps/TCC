@@ -6,14 +6,15 @@
     <title>Controle</title>
 </head>
 <body>
-    <h1 id="title">Cadastrar Usuário</h1>
+    <h1 class="top-title">Plataforma ABC</h1>
+    <h1 class="title">Cadastrar Usuário</h1>
     <div id="form">
     <form action="adicionarUsuario.php" method="post">
         <label for="email">Email: </label><br>
         <input class="inp" type="email" id="email" name="email" required><br><br>
         <label for="senha">Senha: </label><br>
         <input class="inp" type="text" id="senha" name="senha" required><br><br>
-        <input type="submit" value="Submit" id="button"><br><br>
+        <input type="submit" value="Submit" class="button"><br><br>
     </form>
     </div>
     <h2 id="lista">Lista de Usuários</h2>
@@ -48,12 +49,33 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        #title {
+        .top-title {
+            color: #333;
+            text-align: left;
+            position: fixed;
+            left: 50px;
+            top: 24px;
+            font-size: 4rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            margin: 0;
+            padding: 0;
+            z-index: 1000;
+            font-weight: bold;
+        }
+        .title {
             color: #333;
             text-align: center;
         }
         #form {
+            width: 20vw;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
@@ -62,12 +84,20 @@
             margin-left: 41%;
             margin-right: 41%;
             text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.5;
         }
         #lista {
             color: #333;
             text-align: center;
         }
         #usuarios {
+            width: 20vw;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
@@ -83,21 +113,26 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        #button {
-            background-color: #007bff;
+        .button {
+            background-color: #007BFF;
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
             margin-left: 25%;
             margin-right: 25%;
-            }
-            #button:hover {
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s ;
+        }
+        .button:hover {
                 font-weight: bold;
                 background-color: #339cff;
                 color: white;
-                timeing: 0.3s;
+                timeing: 0.3s;        
         }
         .login_button {
             background-color: #007bff;
