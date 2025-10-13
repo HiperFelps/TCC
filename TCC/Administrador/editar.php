@@ -53,6 +53,7 @@ if (isset($_POST['atualizar'])) {
     <title>Editar</title>
 </head>
 <body>
+    <h1 class="top-title">Plataforma ABC</h1>
     <h2 id="titulo">Editar Usuário</h2>
     <div class="form">
         <form method="post" action="editar.php">
@@ -68,18 +69,39 @@ if (isset($_POST['atualizar'])) {
             <input type="submit" name="atualizar" value="atualizar" class="button"><br><br>
         </form>
     </div>
-    <a href="controle.php" id="link">Voltar</a>
+    <a href="controle.php" id="voltar">Voltar</a>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-title {
+            color: #333;
+            text-align: left;
+            position: fixed;
+            left: 50px;
+            top: 24px;
+            font-size: 4rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            margin: 0;
+            padding: 0;
+            z-index: 1000;
+            font-weight: bold;
         }
         #titulo {
             color: #333;
             text-align: center;
         }
         .form {
+            width: 20vw;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
@@ -110,8 +132,15 @@ if (isset($_POST['atualizar'])) {
             margin-right: 25%;
             cursor: pointer;
             border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s ;
         }
-        #link {
+        .button:hover {
+                font-weight: bold;
+                background-color: #339cff;
+                color: white;
+                timeing: 0.3s;        
+        }
+        #voltar {
             text-decoration: none;
             color: #007BFF;
             font-weight: bold;
