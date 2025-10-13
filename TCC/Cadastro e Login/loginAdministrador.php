@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     <nav class="navbar navbar-light" style="background-color: #a8dfaa;">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold fs-3" href="#"><i class="fas fa-sign-in-alt"></i> Login Administrador</a>
+            <a class="navbar-brand fw-bold fs-3" href="#"><h2>Plataforma ABC</h2></a>
             <a class="loginAdmButton" href="login.php">Logar como Usuário</a>
         </div>
     </nav>
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     <div class="custom-container">
         <div class="card-custom">
-            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+            <h2><i class="fas fa-sign-in-alt"></i> Login Administrador</h2>
             <form method="POST">
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
