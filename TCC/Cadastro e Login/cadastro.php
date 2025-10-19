@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    
     <nav class="navbar navbar-light" style="background-color: #a8dfaa;">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold fs-3" href="#"><i class="fas fa-user-plus"></i> Cadastro</a>
+            <a class="navbar-brand fw-bold fs-3" href="#">Plataforma ABC</a>
         </div>
     </nav>
 
@@ -69,5 +69,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
