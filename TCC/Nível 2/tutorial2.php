@@ -1,3 +1,21 @@
+<?php
+session_start();
+include 'conexao.php';
+$id = $_SESSION['id'] ?? null;
+if (!$id) {
+    header("Location: login.php");
+    exit();
+}
+$stmt = $conn->prepare("SELECT numColor FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($numColor);
+$stmt->fetch();
+$stmt->close();
+$colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
+$corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,7 +29,7 @@
             text-align: center;
             font-family: 'Comic Sans MS', cursive, sans-serif;
         }
-        header {
+        .header {
             background-color: #a6dba8;
             padding: 15px;
             font-size: 2rem;
@@ -32,7 +50,7 @@
         .titulo {
             font-size: 2.5rem;
             margin-bottom: 30px;
-            margin-top: -40px;
+            margin-top: 0;
             font-weight: bold;
         }
         .numero {
@@ -62,23 +80,51 @@
             50% { transform: translateY(-10px); }
         }
 
-        .voltar {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #d4f3d4; 
+        .menu_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             border: none;
-            border-radius: 8px; 
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            left: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
         }
-        .voltar:hover {
-            background-color: #b8e6b8; 
+        .menu_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+        .next_button {
+            background-color: #b5eac0;
+            color: #333;
+            font-size: 1.2rem;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            padding: 12px 32px;
+            position: fixed;
+            right: 1vw;
+            bottom: 2vh;
+            margin: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .next_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
         }
 
         .confete {
@@ -109,7 +155,7 @@
 </head>
 <body>
 
-    <header>Alfabetizador</header>
+    <header class="header">Alfabetizador</header>
 
     <div class="container-principal">
         <h2 class="titulo">Números</h2>
@@ -124,7 +170,6 @@
                     </div>
                 </div>
 
-               
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(2)">2</div>
                     <div class="macas">
@@ -133,7 +178,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(3)">3</div>
                     <div class="macas">
@@ -143,7 +187,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(4)">4</div>
                     <div class="macas">
@@ -154,7 +197,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-6 col-md-2 mb-4">
                     <div class="numero" onclick="mostrarMensagem(5)">5</div>
                     <div class="macas">
@@ -169,22 +211,32 @@
         </div>
     </div>
 
-    <button class="voltar" onclick="voltar()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H3.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L3.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
-        </svg>
-    </button>
+        <button onclick="voltar()" class="menu_button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+          </svg>
+          Voltar ao Menu Principal
+        </button>
+        <button onclick="Next()" class="next_button">
+            Continuar nível  
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+          </svg>
+        </button>
 
     <div class="confete" id="confete"></div>
 
     <script>
         function mostrarMensagem(numero) {
-            alert("Você está no nível " + numero);
             soltarConfetes();
         }
 
         function voltar() {
             window.location.href = "menu.php";
+        }
+
+        function Next() {
+          window.location.href = 'numero1.php';
         }
 
         function soltarConfetes() {
@@ -207,6 +259,26 @@
             const cores = ['#ffcc00', '#ff6666', '#66ccff', '#66ff66', '#ff99cc'];
             return cores[Math.floor(Math.random() * cores.length)];
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var header = document.querySelector('.header');
+            if (header) {
+                header.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var menu_button = document.querySelector('.menu_button');
+            if (menu_button) {
+                menu_button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+            var numero = document.querySelectorAll('.numero');
+                numero.forEach(function(button) {
+                button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            });
+            var next_button = document.querySelector('.next_button');
+            if (next_button) {
+                next_button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            }
+        });
+        
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
