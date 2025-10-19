@@ -194,18 +194,20 @@ $numEnergiaAtual = $numEnergia ?? 5;
 
     <script>
         var expectedVowel = null;
-        var score = 1;
+        var score = 0;
         var exitingLevel = false;
-        var userId = <?php echo json_encode($id); ?>; // Pass user ID to JS safely
-        var currentLevel = <?php echo json_encode($numNivel); ?>; // Pass current level to JS
+        var userId = <?php echo json_encode($id); ?>;
+        var currentLevel = <?php echo json_encode($numNivel); ?>;
+        var playedLetters = [];
+
 
         function Menu() {
-            exitingLevel = true; // Flag to prevent update on incomplete exit
+            exitingLevel = true; 
             window.location.href = 'menu.php';            
         }
 
         function Voltar() {
-            exitingLevel = true; // Flag to prevent update on incomplete exit
+            exitingLevel = true;
             window.history.back();            
         }
 
@@ -217,13 +219,13 @@ $numEnergiaAtual = $numEnergia ?? 5;
             }
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'nivelConcluido.php', true);
+            xhr.open('POST', 'nivel1Concluido.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.success) {
-                        console.log('Level and energy updated successfully');
+                        console.log('Nível e energia atualizados com sucesso.');
                         currentLevel = currentLevel + 1; // Update local variable
                     } else {
                         console.error('Update failed: ' + response.error);
@@ -253,14 +255,17 @@ $numEnergiaAtual = $numEnergia ?? 5;
                 randomIndex = Math.floor(Math.random() * vowels.length);
             } while (vowels[randomIndex] === previousVowel);
             expectedVowel = vowels[randomIndex];
-            playSound(expectedVowel);
-            alert('Ouça o som e clique na letra correspondente!');
+            if(!playedLetters.includes(expectedVowel)){
+                playSound(expectedVowel);
+                playedLetters.push(expectedVowel);
+            }else{
+                playRandomVowel();
+            }
         }
 
         function restartPhase() {
             if (!exitingLevel) {
                 if (score < 5) {
-                    score++;
                     expectedVowel = null;
                     setTimeout(function() { playRandomVowel(); }, 500); 
                 } else {
@@ -293,6 +298,7 @@ $numEnergiaAtual = $numEnergia ?? 5;
                     if (letter === expectedVowel) {
                         playCorrectSound();
                         alert('Parabéns! Você acertou!');
+                        score++;
                         restartPhase();
                     } else {
                         alert('Tente novamente!');
