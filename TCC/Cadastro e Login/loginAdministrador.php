@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     <nav class="navbar navbar-light" style="background-color: #a8dfaa;">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold fs-3" href="#"><h2>Plataforma ABC</h2></a>
+            <a class="navbar-brand fw-bold fs-3" href="#"><h2 style="font-weight: bold;">Plataforma ABC</h2></a>
             <a class="loginAdmButton" href="login.php">Logar como Usuário</a>
         </div>
     </nav>
