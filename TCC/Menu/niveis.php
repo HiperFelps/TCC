@@ -6,15 +6,13 @@ if (!$id) {
     header("Location: login.php");
     exit();
 }
-$stmt = $conn->prepare("SELECT numPet, numColor FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT numColor FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($numPet, $numColor);
+$stmt->bind_result($numColor);
 $stmt->fetch();
 $stmt->close();
-$petFiles = ['pet.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
 $colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
-$petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
 $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 ?>
 
@@ -35,23 +33,14 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                     <button type="button" class="nivel_button" onclick="StartLevel1()">1</button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                     <button type="button" class="nivel_button" onclick="StartLevel2()">2</button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                     <button type="button" class="nivel_button" onclick="StartLevel3()">3</button>
-            </div>
-            <div class="col-md-2">
-                    <button type="button" class="nivel_button" onclick="StartLevel4()">4</button>
-            </div>
-            <div class="col-md-2">
-                    <button type="button" class="nivel_button" onclick="StartLevel5()">5</button>
-            </div>
-            <div class="col-md-2">
-                    <button type="button" class="nivel_button" onclick="StartLevel6()">6</button>
             </div>
         </div>
     </div>
@@ -91,10 +80,14 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             margin-left: 1vw;
             margin-bottom: 1vh;
         }
-
+        .row{
+            margin-top: 5vh;
+            text-align: center;
+            justify-content: center;
+        }
         .nivel_button {
-            width: 7vw;
-            height: 12vh;
+            width: 10vw;
+            height: 18vh;
             margin-top: 8vh;
             padding: 1vh;
             margin-right: 1vw;
@@ -118,7 +111,7 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             font-size: 1.2rem;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             border: none;
-            border-radius: 12px;         
+            border-radius: 12px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.12);
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
@@ -130,7 +123,11 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             z-index: 1000;
             display: flex;
             align-items: center;
-        }      
+        }
+        .menu_button:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
@@ -142,20 +139,12 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
           window.location.href = "tutorial.php";
         }
         function StartLevel2() {
-                window.location.href = "niveis.numeros.php";
+                window.location.href = "tutorial2.php";
         }
         function StartLevel3() {
-                window.location.href = "level3.php";
+                window.location.href = "tutorial3.php";
         }
-        function StartLevel4() {
-            window.location.href = "level4.php";
-        }
-        function StartLevel5() {
-            window.location.href = "level5.php";
-        }
-        function StartLevel6() {
-            window.location.href = "level6.php";
-        }
+
         function Menu() {
             window.location.href = 'menu.php';
         }
