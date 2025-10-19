@@ -59,9 +59,8 @@
         }
         .top-title {
             color: #333;
-            text-align: left;
+            text-align: center;
             position: fixed;
-            left: 50px;
             top: 24px;
             font-size: 4rem;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
@@ -73,6 +72,8 @@
         .title {
             color: #333;
             text-align: center;
+            margin-top: 100px;
+            margin-bottom: 20px;
         }
         #form {
             width: 20vw;
