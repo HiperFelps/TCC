@@ -42,13 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
    
-    <nav class="navbar navbar-light" style="background-color: #a8dfaa;">
+    <nav class="navbar navbar-light" style="background-color: #a8dfaa; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold fs-3" href="#">Plataforma ABC</a>
+            <a class="navbar-brand fw-bold fs-3" href="#"><h2 style="font-weight: bold;">Plataforma ABC</h2></a>
         </div>
     </nav>
 
-    
     <div class="custom-container">
         <div class="card-custom">
             <h2><i class="fas fa-user-plus"></i> Cadastro</h2>
