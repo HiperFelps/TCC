@@ -6,207 +6,138 @@ if (!$id) {
     header("Location: login.php");
     exit();
 }
-$stmt = $conn->prepare("SELECT numPet, numColor, numNivel, numEnergia FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT numColor, numNivel FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($numPet, $numColor, $numNivel, $numEnergia);
+$stmt->bind_result($numColor, $numNivel);
 $stmt->fetch();
 $stmt->close();
-$petFiles = ['petCat.gif', 'petCat.gif', 'petDino.gif', 'petCapi.gif'];
 $colorCodes = ['#b5eac0', '#b5eac0', '#add8e6', '#ffb6c1'];
-$petImagem = $petFiles[$numPet ?? 0] ?? 'pet.gif';
-$corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 $numNivel = $numNivel ?? 1;
-$energiaAtual = $numEnergia ?? 5;
-$energiaMaxima = 5;
+$corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link href="niveis.php">
+    <title>Alfabetizador - Número 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; text-align: center; font-family: 'Comic Sans MS', cursive, sans-serif; }
+        .header { background-color: #a6dba8; padding: 15px; font-size: 2rem; font-weight: bold; color: #000; text-align: left; padding-left: 20px; }
+        .container-principal { display: flex; justify-content: center; align-items: center; min-height: 75vh; flex-direction: column; }
+        .titulo { font-size: 2.5rem; margin-bottom: 30px; font-weight: bold; }
+        .numero { font-size: 3rem; font-weight: bold; color: white; background-color: #a6dba8; border-radius: 20px; padding: 20px; margin: 10px; display: inline-block; box-shadow: 4px 4px 8px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.3s; }
+        .numero:hover { transform: scale(1.1); background-color: #8ccf90; }
+        .macas img { width: 60px; margin: 5px; animation: bounce 1.5s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .mensagem { margin-top: 20px; max-width: 400px; }
+        .menu_button { background-color: #b5eac0; color: #333; font-size: 1.2rem; font-family: 'Comic Sans MS', 'Comic Sans', cursive; border: none; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); cursor: pointer; transition: background 0.2s, color 0.2s; padding: 12px 32px; position: fixed; left: 1vw; bottom: 2vh; margin: 0; z-index: 1000; display: flex; align-items: center;}
+        .menu_button:hover { background-color: #e0e0e0; cursor: pointer;}
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"><h2 class="top_title">Plataforma ABC</h2></span>
-        </div>
-    </nav>
 
-    <div class="pet_status">
-        <img src="<?php echo htmlspecialchars($petImagem); ?>" alt="Pet" class="img-fluid"><br>
-    
-        <div style="display: flex; align-items: center; gap: 0.5vw;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fcc01e" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
-            <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
-            </svg>
-            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="<?php echo $energiaAtual * 20; ?>" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-warning" style="width: <?php echo ($energiaAtual / $energiaMaxima) * 100; ?>%"></div>
+    <header class="header">Alfabetizador</header>
+
+    <div class="container-principal">
+        <h2 class="titulo">Quantas maçãs tem?</h2>
+
+        <div class="macas">
+            <?php 
+            for ($i = 0; $i < 5; $i++) {
+                echo '<img src="https://cdn-icons-png.flaticon.com/512/415/415733.png" alt="maçã">';
+            }
+            ?>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <?php 
+                for ($i = 1; $i <= 5; $i++) {
+                    echo '<div class="col-4 col-md-2 mb-3">
+                            <div class="numero" onclick="verificar('.$i.')">'.$i.'</div>
+                          </div>';
+                }
+                ?>
             </div>
         </div>
-        <div>
-            <h4><?php echo $energiaAtual . '/' . $energiaMaxima; ?></h4>
-        </div>
+
+        <div class="mensagem" id="mensagem"></div>
     </div>
+    <button onclick="voltar()" class="menu_button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+        </svg>
+        Voltar ao Menu Principal
+    </button>
 
-    <div class="menu">
-        <h2 class="menu_title">Menu</h2>
-        <button class="menu_button" onclick="jogar()">Jogar</button>
-        <button class="menu_button" onclick="niveis()">Níveis</button>
-        <button class="menu_button" onclick="opcoes()">Opções</button>
-        <button class="menu_button" onclick="sair()">Sair</button>
-    </div>
-
-    <style>
-        body {
-            background-color: #f0f0f0;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-        }
-        .navbar  {
-            background-color: #b5eac0;
-            width: 100vw;
-            height: 12vh;
-            padding-bottom: 1vh;
-        }
-        .container-fluid {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 10vh;
-            padding-bottom: 1vh;
-            padding-left: 1vw;
-        }
-        .top_title{
-            font-size: 3rem;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-            margin-top: -1vh;
-            margin-left: 1vw;
-            margin-bottom: 1vh;
-        }
-        .img-fluid{
-            width: auto;
-            height: auto;
-            margin-left: 0vw;
-            margin-bottom: 2vh;
-        }
-        .pet_status{
-            margin-left: 10vw;
-            margin-top: 28vh;
-            align-items: center;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-            width: 20vw;
-            height: 20vh;
-        }
-        .progress {
-            width: 20vw;
-            height: 1.5vh;
-        }
-        .menu{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 50vh;
-            width: 16vw;
-            background-color: #b5eac0;
-            border-radius: 20px;
-            padding: 2vw 2vh 2vw 2vh;
-            margin-left: 60vw;
-            margin-top: -40vh;
-            transition: height 0.3s, width 0.3s, transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transform-origin: center center;
-        }
-        .menu:hover {
-            height: 60vh;
-            width: 20vw;
-            transform: scale(1.1);
-            transition: height 0.3s, width 0.3s, transform 0.3s;
-        }
-        .menu_title{
-            font-size: 3rem;
-            margin-bottom: 2vh;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-
-        }
-        .menu_button{
-            width: 80%;
-            height: 10vh;
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.5rem;
-            margin: 1vh 0;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-            transition: background 0.2s, color 0.2s;
-        }
-        .menu_button:hover {
-            background-color: #e0e0e0;
-            color: #636363;
-            cursor: pointer;
-        }
-    </style>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-        // Bootstrap JS
-    </script>
     <script>
-        // JS básico
-        function jogar() {
-            if(<?php echo $energiaAtual; ?> >= 5) {
-                alert("Sobrecarga de Energia! Está na hora de uma pausa.");
+        var userId = <?php echo json_encode($id); ?>;
+        var currentLevel = <?php echo json_encode($numNivel); ?>;
+
+        function voltar() {
+            window.location.href = "menu.php";
+        }
+        function verificar(numero) {
+            const mensagem = document.getElementById("mensagem");
+            mensagem.innerHTML = "";
+
+            if (numero === 5) {
+                mensagem.innerHTML = `<div class="alert alert-success" role="alert">
+                    🎉 Parabéns! Você acertou!<br> Nível finalizado, voltando ao Menu...
+                </div>`;
+                setTimeout(() => {
+                    updateLevelAndEnergy();
+                    window.location.href = "menu.php";
+                }, 2000);
+            } else {
+                mensagem.innerHTML = `<div class="alert alert-danger" role="alert">
+                    ❌ Tente novamente!
+                </div>`;
+            }
+        }
+        function updateLevelAndEnergy() {
+            if (currentLevel !== 2) {
+                console.log('Level update skipped: Not on level 2');
                 return;
-            }else if (confirm("Você está pronto para jogar?")) {
-                if(<?php echo $numNivel; ?> <= 0){
-                    alert("Por favor, selecione um nível na seção Níveis.");
-                    return;
-                } else if (<?php echo $numNivel; ?> == 1){
-                    window.location.href = "tutorial.php";
-                } else if (<?php echo $numNivel; ?> == 2){
-                    window.location.href = "niveis.numeros.php";
-                } else if (<?php echo $numNivel; ?> == 3){
-                    window.location.href = "nivel3.php";
-                } else if (<?php echo $numNivel; ?> == 4){
-                    window.location.href = "nivel4.php";
-                } else if (<?php echo $numNivel; ?> == 5){
-                    window.location.href = "nivel5.php";
-                } else {
-                    alert("Parabéns! Você completou todos os níveis disponíveis.");
-                    return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'nivel2Concluido.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        console.log('Nível e energia atualizados com sucesso.');
+                        currentLevel = currentLevel + 1; // Update local variable
+                    } else {
+                        console.error('Update failed: ' + response.error);
+                        alert('Erro ao atualizar progresso. Tente novamente.');
+                    }
                 }
-            }
+            };
+            xhr.send('user_id=' + encodeURIComponent(userId));
         }
-        function niveis() {
-            window.location.href = "niveis.php";
-        }
-        function opcoes() {
-            window.location.href = "opcoes.php";
-        }
-        function sair() {
-            if (confirm("Você tem certeza que deseja sair?")) {
-                window.location.href = "login.php";
-            }
-        }
-    
         document.addEventListener('DOMContentLoaded', function() {
-            var menu = document.querySelector('.menu');
-            if (menu) {
-                menu.style.backgroundColor = "<?php echo $corMenu; ?>";
+            var header = document.querySelector('.header');
+            if (header) {
+                header.style.backgroundColor = "<?php echo $corMenu; ?>";
             }
-            var navbar = document.querySelector('.navbar');
-            if (navbar) {
-                navbar.style.backgroundColor = "<?php echo $corMenu; ?>";
+            var menu_button = document.querySelector('.menu_button');
+            if (menu_button) {
+                menu_button.style.backgroundColor = "<?php echo $corMenu; ?>";
             }
+            var numero = document.querySelectorAll('.numero');
+                numero.forEach(function(button) {
+                button.style.backgroundColor = "<?php echo $corMenu; ?>";
+            });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
