@@ -54,7 +54,7 @@ if (isset($_POST['atualizar'])) {
 </head>
 <body>
     <h1 class="top-title">Plataforma ABC</h1>
-    <h2 id="titulo">Editar Usuário</h2>
+    <h1 class="title">Editar Usuário</h1>
     <div class="form">
         <form method="post" action="editar.php">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($usuario['id']); ?>">
@@ -65,7 +65,7 @@ if (isset($_POST['atualizar'])) {
             <label for="numNivel" class="labels">Nível: </label><br>
             <input class="inp" type="number" name="numNivel" min=1 value="<?php echo htmlspecialchars($usuario['numNivel']); ?>" required><br><br>
             <label for="numEnergia" class="labels">Energia: </label><br>
-            <input class="inp" type="number" name="numEnergia" max="5" min="1" value="<?php echo htmlspecialchars($usuario['numEnergia']); ?>" required><br><br>
+            <input class="inp" type="number" name="numEnergia" max="5" min="0" value="<?php echo htmlspecialchars($usuario['numEnergia']); ?>" required><br><br>
             <input type="submit" name="atualizar" value="atualizar" class="button"><br><br>
         </form>
     </div>
@@ -85,9 +85,8 @@ if (isset($_POST['atualizar'])) {
         }
         .top-title {
             color: #333;
-            text-align: left;
+            text-align: center;
             position: fixed;
-            left: 50px;
             top: 24px;
             font-size: 4rem;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
@@ -96,9 +95,11 @@ if (isset($_POST['atualizar'])) {
             z-index: 1000;
             font-weight: bold;
         }
-        #titulo {
+        .title {
             color: #333;
             text-align: center;
+            margin-top: 140px;
+            margin-bottom: 20px;
         }
         .form {
             width: 20vw;
@@ -146,7 +147,8 @@ if (isset($_POST['atualizar'])) {
             font-weight: bold;
             text-align: center;
             display: block;
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
         .labels {
             font-weight: bold;
