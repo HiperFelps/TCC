@@ -39,10 +39,9 @@ include 'conexao.php'; // $conn is your connection variable
       </div>
     </div>
     <button onclick="Menu()" class="menu_button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-      </svg>
-      Voltar ao Menu Principal
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+        </svg>
     </button>
 
     <style>
@@ -72,18 +71,24 @@ include 'conexao.php'; // $conn is your connection variable
             margin-left: 1vw;
             margin-bottom: 1vh;
         }
+        .container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
         .opcoes-pet {
             margin-left: 8vw;
             margin-top: 8vh;
             border: 2px solid #ccc;
             border-radius: 12px;
-            padding-top: 1vh;
-            padding-bottom: 5vh;
-            padding-left: 1vw;
-            padding-right: 2vw;
+            padding: 24px;
             display: inline-block;
             background: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+            min-height: 300px;
+            width: fit-content;
+            height: fit-content;
             min-height: 20vh;
             min-width: 18vw;
             max-width: 18vw;
@@ -120,7 +125,10 @@ include 'conexao.php'; // $conn is your connection variable
             background-color: transparent;
             border: none;
             cursor: pointer;
-        }
+            margin-left: -24px;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            }
         .green_button{
             width: 50px;
             height: 50px;
