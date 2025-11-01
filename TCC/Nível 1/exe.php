@@ -132,7 +132,7 @@ $numEnergiaAtual = $numEnergia ?? 5;
             padding: 12px 32px;
             position: fixed;
             left: 1vw;
-            bottom: 12vh;
+            bottom: 15vh;
             margin: 0;
             z-index: 1000;
             display: flex;
@@ -170,18 +170,16 @@ $numEnergiaAtual = $numEnergia ?? 5;
             </div>
         </div>
     </div>
-
-     <button onclick="Voltar()" class="voltar_button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+    
+    <button onclick="Voltar()" class="voltar_button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="4  0" height="40" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
       </svg>
-      Voltar à página anterior
     </button>
     <button onclick="Menu()" class="menu_button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-      </svg>
-      Voltar ao Menu Principal
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+        </svg>
     </button>
 
     <audio id="audioA" src="somA.mp3"></audio>
