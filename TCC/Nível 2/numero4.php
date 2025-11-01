@@ -21,7 +21,7 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfabetizador - Número 3</title>
+    <title>Alfabetizador - Número 4</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f8f9fa; text-align: center; font-family: 'Comic Sans MS', cursive, sans-serif; }
@@ -46,7 +46,7 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
 
         <div class="macas">
             <?php 
-            for ($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < 4; $i++) {
                 echo '<img src="https://cdn-icons-png.flaticon.com/512/415/415733.png" alt="maçã">';
             }
             ?>
@@ -67,10 +67,9 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
         <div class="mensagem" id="mensagem"></div>
     </div>
     <button onclick="voltar()" class="menu_button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
         </svg>
-        Voltar ao Menu Principal
     </button>
 
     <script>
@@ -81,12 +80,12 @@ $corMenu = $colorCodes[$numColor ?? 0] ?? '#b5eac0';
             const mensagem = document.getElementById("mensagem");
             mensagem.innerHTML = "";
 
-            if (numero === 3) {
+            if (numero === 4) {
                 mensagem.innerHTML = `<div class="alert alert-success" role="alert">
                     🎉 Parabéns! Você acertou!<br> Indo para o próximo desafio...
                 </div>`;
                 setTimeout(() => {
-                    window.location.href = "numero5.php";
+                    window.location.href = "numero2.php";
                 }, 2000);
             } else {
                 mensagem.innerHTML = `<div class="alert alert-danger" role="alert">
