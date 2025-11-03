@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                    <input type="password" name="senha" class="form-control" minlength="8" placeholder="Digite sua senha" required>
                 </div>
                 <button type="submit" class="btn btn-custom w-100"><i class="fas fa-check"></i> Cadastrar</button>
                 <p class="mt-3 text-center">Já tem conta? <a href="login.php" class="text-dark fw-bold">Login</a></p>
