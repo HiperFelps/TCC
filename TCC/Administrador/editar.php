@@ -54,7 +54,9 @@ if (isset($_POST['atualizar'])) {
 </head>
 <body>
     <h1 class="top-title">Plataforma ABC</h1>
-    <h1 class="title">Editar Usuário</h1>
+    <h1 class="title">Editar Usuário:</h1>
+    <h2 class="info">ID: <?php echo $usuario['id']?></h2>
+    <h2 class="info">Email: <?php echo $usuario['email']?></h2>
     <div class="form">
         <form method="post" action="editar.php">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($usuario['id']); ?>">
@@ -86,20 +88,26 @@ if (isset($_POST['atualizar'])) {
         .top-title {
             color: #333;
             text-align: center;
-            position: fixed;
+            position: absolute;
             top: 24px;
             font-size: 4rem;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             margin: 0;
+            margin-bottom: 20px;
             padding: 0;
-            z-index: 1000;
             font-weight: bold;
         }
         .title {
             color: #333;
             text-align: center;
-            margin-top: 140px;
-            margin-bottom: 20px;
+            margin-top: 260px;
+        }
+        .info{
+            color: #555;
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 10px;
+
         }
         .form {
             width: 20vw;
@@ -149,6 +157,7 @@ if (isset($_POST['atualizar'])) {
             display: block;
             margin-top: 10px;
             margin-bottom: 20px;
+            padding-bottom: 30px;
         }
         .labels {
             font-weight: bold;
