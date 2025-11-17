@@ -27,6 +27,7 @@
             font-size: 70px;
             color: #28a745;
             margin-bottom: 20px;
+            transition: color 0.3s;
         }
         .success-card h2 {
             font-weight: bold;
@@ -41,19 +42,28 @@
         .btn-custom:hover {
             background: #28a745;
             color: #fff;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-    <div class="success-card">
-        <i class="fas fa-check-circle"></i>
-        <h2>Cadastro realizado com sucesso!</h2>
-        <p>Agora você pode fazer login e aproveitar o sistema.</p>
-        <a href="login.php" class="btn btn-custom mt-3"><i class="fas fa-arrow-left"></i> Voltar para Login</a>
-    </div>
-</body>
+
+            #arrow {
+                margin-right: 8px;
+                margin-top: 10px;
+                transition: color 0.3s;
+                color: #000;
+            }
+            #arrow:hover {
+                color: #fff;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            </style>
+        </head>
+        <body>
+            <div class="success-card">
+            <i class="fas fa-check-circle"></i>
+            <h2>Cadastro realizado com sucesso!</h2>
+            <p>Agora você pode fazer login e aproveitar o sistema.</p>
+            <a href="login.php" class="btn btn-custom mt-3"><i class="fas fa-arrow-left" id="arrow"></i> Voltar para Login</a>
+            </div>
+        </body>
 </html>
